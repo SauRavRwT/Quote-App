@@ -14,7 +14,9 @@ function App() {
 
   useEffect(() => {
     const fetchAllQuotes = async () => {
-      const response = await fetch("https://raw.githubusercontent.com/SauRavRwT/Thoughts/main/assets/Thoughts.txt");
+      const response = await fetch(
+        "https://raw.githubusercontent.com/SauRavRwT/Thoughts/main/assets/Thoughts.txt"
+      );
 
       if (!response.ok) {
         throw new Error("Failed to fetch quotes");
@@ -119,8 +121,9 @@ function App() {
 
       <div className="d-flex justify-content-center">
         <button
-          className="btn rounded-3"
-          id="nextButton" type="button"
+          className="btn button btn-dark rounded-3"
+          id="nextButton"
+          type="button"
           onClick={loadNextPage}
         >
           Next

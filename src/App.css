@@ -1,38 +1,42 @@
+/* Center and make the container responsive */
 .container {
-  background-color: #4D869C;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
   border-radius: 20px;
-  box-shadow: 5px 20px 50px #222831;
-  margin: 5rem auto;
+  /* background-color: #f5f5f5; */
 }
 
+/* Card styles */
 .card {
-  /* ease | ease-in | ease-out | linear */
   transition: transform ease-in-out 0.3s;
-  background-color: #EEF7FF;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .card:hover {
-  transform: scale(1.2);
+  transform: scale(1.05);
 }
 
+/* Modal styles */
 .modal {
   backdrop-filter: blur(8px);
 }
 
 .modal-content {
   border-radius: 20px;
-  background-color: #EEF7FF;
+  background-color: #ffffff;
   color: #222831;
-  box-shadow: 5px 20px 50px #222831;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Button styles */
 .btn {
-  background-color: #CDE8E5;
   margin: 2rem;
-}
-
-.btn:hover {
-  background-color: #EEF7FF;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s;
 }
 
 /* Scrollbar */
@@ -40,11 +44,13 @@
   width: 5px;
   height: 5px;
 }
+
 ::-webkit-scrollbar-thumb {
-  background-color: #4D869C;
-  border: 1px solid #4D869C;
+  background-color: #a0a0a0;
   border-radius: 10px;
 }
+
 ::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
   border-radius: 10px;
 }
