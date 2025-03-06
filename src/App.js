@@ -9,8 +9,10 @@ function App() {
   const [allQuotes, setAllQuotes] = useState([]);
   const [quotes, setQuotes] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [quote, setQuote] = useState("");
+  const [quoteOfTheDay, setQuoteOfTheDay] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [quote, setQuote] = useState("");
+  const [quoteNumber, setQuoteNumber] = useState(null);
 
   useEffect(() => {
     const fetchAllQuotes = async () => {
@@ -26,6 +28,12 @@ function App() {
         .split("\n")
         .filter((quote) => quote.trim() !== "");
       setAllQuotes(fetchedQuotes);
+
+      const today = new Date();
+      const dayOfYear = Math.floor(
+        (today - new Date(today.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24
+      );
+      setQuoteOfTheDay(fetchedQuotes[dayOfYear % fetchedQuotes.length]);
     };
 
     fetchAllQuotes();
@@ -41,12 +49,13 @@ function App() {
     if (currentPage * pageSize < allQuotes.length) {
       setCurrentPage((prevPage) => prevPage + 1);
     } else {
-      setCurrentPage(1); // Loop back to the first page if no more quotes
+      setCurrentPage(1);
     }
   };
 
-  const openModal = (quote) => {
+  const openModal = (quote, index) => {
     setQuote(quote);
+    setQuoteNumber((currentPage - 1) * pageSize + index + 1);
     setShowModal(true);
   };
 
@@ -54,35 +63,34 @@ function App() {
     setShowModal(false);
   };
 
-  useEffect(() => {
-    const handleBlur = () => {
-      document.title = "Quote-App - Come back!";
-    };
-    const handleFocus = () => {
-      document.title = "Quote-App!";
-    };
-    window.addEventListener("blur", handleBlur);
-    window.addEventListener("focus", handleFocus);
-    return () => {
-      window.removeEventListener("blur", handleBlur);
-      window.removeEventListener("focus", handleFocus);
-    };
-  }, []);
-
   return (
-    <div className="container">
-      <h1 className="mt-5 mb-4 display-3 fw-bold p-2 border-bottom text-center">
-        Quotes!
-      </h1>
-      <div
-        className="row d-flex justify-content-center border-bottom"
-        id="quoteGrid"
-      >
+    <div className="container mt-5">
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h1 className="display-3 fw-bold">Quotes!</h1>
+      </div>
+      <div className="container mb-5 d-flex justify-content-center align-items-center">
+        <div className="quote-of-the-day rounded-4 border p-3">
+          <p className="font-monospace">
+            <strong>Date:</strong> {new Date().toLocaleDateString()}
+          </p>
+          <h2 className="fw-bold text-center">
+            Quote of the Day: #{allQuotes.indexOf(quoteOfTheDay) + 1}
+          </h2>
+          <p className="font-monospace text-center">"{quoteOfTheDay}"</p>
+        </div>
+      </div>
+      <div className="row g-4">
         {quotes.map((q, index) => (
-          <div className="col-md-4 mb-4" key={index}>
-            <div className="card rounded-4" onClick={() => openModal(q)}>
-              <div className="card-body">
-                <p className="card-text font-monospace">"{q}"</p>
+          <div className="col-md-4" key={index}>
+            <div
+              className="card h-100 shadow-sm"
+              onClick={() => openModal(q, index)}
+            >
+              <div className="card-body d-flex align-items-center justify-content-center">
+                <p className="card-text text-center font-monospace">
+                  <strong>#{(currentPage - 1) * pageSize + index + 1}:</strong>{" "}
+                  "{q}"
+                </p>
               </div>
             </div>
           </div>
@@ -99,7 +107,7 @@ function App() {
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title fs-5 fw-bold" id="quoteModalLabel">
-                  Today's Quote
+                  Quote #{quoteNumber}
                 </h5>
                 <button
                   type="button"
@@ -119,9 +127,9 @@ function App() {
         </div>
       )}
 
-      <div className="d-flex justify-content-center">
+      <div className="d-flex justify-content-center mt-4">
         <button
-          className="btn button btn-dark rounded-3"
+          className="btn btn-dark rounded-pill px-4 py-2"
           id="nextButton"
           type="button"
           onClick={loadNextPage}
