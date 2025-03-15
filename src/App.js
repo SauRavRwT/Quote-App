@@ -13,6 +13,7 @@ function App() {
   const [showModal, setShowModal] = useState(false);
   const [quote, setQuote] = useState("");
   const [quoteNumber, setQuoteNumber] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchAllQuotes = async () => {
@@ -46,11 +47,15 @@ function App() {
   }, [allQuotes, currentPage]);
 
   const loadNextPage = () => {
-    if (currentPage * pageSize < allQuotes.length) {
-      setCurrentPage((prevPage) => prevPage + 1);
-    } else {
-      setCurrentPage(1);
-    }
+    setIsLoading(true);
+    setTimeout(() => {
+      if (currentPage * pageSize < allQuotes.length) {
+        setCurrentPage((prevPage) => prevPage + 1);
+      } else {
+        setCurrentPage(1);
+      }
+      setIsLoading(false);
+    }, 300);
   };
 
   const openModal = (quote, index) => {
@@ -79,7 +84,7 @@ function App() {
           <p className="font-monospace text-center">"{quoteOfTheDay}"</p>
         </div>
       </div>
-      <div className="row g-4">
+      <div className={`quotes-grid row g-4 ${isLoading ? 'fade-out' : 'fade-in'}`}>
         {quotes.map((q, index) => (
           <div className="col-md-4" key={index}>
             <div

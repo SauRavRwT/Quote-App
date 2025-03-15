@@ -1,3 +1,6 @@
+html {
+  scroll-behavior: smooth;
+}
 /* Center and make the container responsive */
 .container {
   width: 90%;
@@ -5,11 +8,12 @@
   margin: 0 auto;
   padding: 1rem;
   border-radius: 20px;
+  animation: fadeIn 1s ease-in-out;
 }
 
 /* Card styles */
 .card {
-  transition: transform ease-in-out 0.3s;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -17,11 +21,13 @@
 
 .card:hover {
   transform: scale(1.05);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Modal styles */
 .modal {
   backdrop-filter: blur(8px);
+  animation: fadeIn 0.5s ease-in-out;
 }
 
 .modal-content {
@@ -29,13 +35,38 @@
   background-color: #ffffff;
   color: #222831;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  animation: slideIn 0.6s ease-in-out;
 }
 
 /* Button styles */
 .btn {
   margin: 2rem;
   padding: 0.5rem 1rem;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn:hover {
+  background-color: #f5f5f5;
+  transform: translateY(-2px);
+  color: #222831
+}
+
+.btn-close {
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.btn-close:hover {
+  transform: rotate(90deg);
+  opacity: 0.7;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 /* Scrollbar */
@@ -52,4 +83,38 @@
 ::-webkit-scrollbar-track {
   background-color: #f5f5f5;
   border-radius: 10px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Quote grid transitions */
+.quotes-grid {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.quotes-grid.fade-out {
+  opacity: 0;
+}
+
+.quotes-grid.fade-in {
+  opacity: 1;
 }
