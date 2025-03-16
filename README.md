@@ -3,15 +3,19 @@
 This project is a simple Quote App built with React. It fetches quotes from an external source and displays them in a modern, user-friendly interface.
 
 <img src="./Images/Quote-App.png" />
-<img src="./Images/Quote-App-1.png" />
 
-## Key Features
+## Features
 
-- **Quote of the Day**: Displays a unique quote for each day.
-- **Paginated Quotes**: Browse through quotes with pagination.
-- **Responsive Design**: Mobile-friendly and responsive layout.
-- **Modal View**: Click on a quote to view it in a modal.
-- **Dynamic Title**: Changes the document title based on user activity.
+- 📱 Fully responsive design.
+- 📅 Quote of the Day that changes daily.
+- 🔄 Pagination with smooth transitions.
+- 💫 Custom animated preloader.
+- 🖼️ Card-based quote display.
+- 🔍 Modal view for detailed quote reading.
+- ⚡ Fast loading and performance.
+- 🎨 Bootstrap styling with custom animations.
+- 🔄 Smooth page transitions.
+- ⚡ Optimized loading states.
 
 ## Technologies Used
 
