@@ -13,7 +13,6 @@ function App() {
   const [showModal, setShowModal] = useState(false);
   const [quote, setQuote] = useState("");
   const [quoteNumber, setQuoteNumber] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
   const [showPreloader, setShowPreloader] = useState(true);
 
   useEffect(() => {
@@ -51,15 +50,12 @@ function App() {
     setQuotes(allQuotes.slice(startIndex, startIndex + pageSize));
   }, [allQuotes, currentPage]);
 
-  const loadNextPage = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setCurrentPage((prevPage) =>
-        prevPage * pageSize < allQuotes.length ? prevPage + 1 : 1
-      );
-      setIsLoading(false);
-    }, 300);
+  const handlePageChange = (newPage) => {
+    if (newPage < 1 || newPage > Math.ceil(allQuotes.length / pageSize)) return;
+    setCurrentPage(newPage);
   };
+
+  const totalPages = Math.ceil(allQuotes.length / pageSize);
 
   const openModal = (quote, index) => {
     setQuote(quote);
@@ -92,8 +88,8 @@ function App() {
           </div>
         </div>
         <div
-          className={`quotes-grid row g-4 ${
-            isLoading ? "fade-out" : "fade-in"
+          className={`quotes-grid ${
+            currentPage === totalPages ? "fade-out" : "fade-in"
           }`}
         >
           {quotes.map((q, index) => (
@@ -143,17 +139,37 @@ function App() {
             </div>
           </div>
         )}
-        <div className="d-flex justify-content-center mt-4">
+        <div className="d-flex justify-content-center">
           <button
             className="btn btn-dark rounded-pill px-4 py-2"
-            id="nextButton"
-            type="button"
-            onClick={loadNextPage}
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Prev
+          </button>
+          <span className="d-flex align-items-center px-2">
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            className="btn btn-dark rounded-pill px-4 py-2"
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
           >
             Next
           </button>
         </div>
       </div>
+      <footer className="text-dark text-center py-3 mt-5 fw-bold">
+        <p className="mb-0">
+          Made with ❤️ by{" "}
+          <a
+            className="text-decoration-none"
+            href="https://github.com/SauRavRwT"
+          >
+            SauRavRwT
+          </a>
+        </p>
+      </footer>
     </>
   );
 }

@@ -1,6 +1,7 @@
 html {
   scroll-behavior: smooth;
 }
+
 /* Center and make the container responsive */
 .container {
   width: 90%;
@@ -109,6 +110,9 @@ html {
 /* Quote grid transitions */
 .quotes-grid {
   transition: opacity 0.3s ease-in-out;
+  column-count: 3;
+  column-gap: 1.5rem;
+  margin: 1.5rem 0;
 }
 
 .quotes-grid.fade-out {
@@ -117,6 +121,26 @@ html {
 
 .quotes-grid.fade-in {
   opacity: 1;
+}
+
+.quotes-grid .col-md-4 {
+  width: 100%;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  break-inside: avoid;
+}
+
+/* Responsive columns */
+@media (max-width: 992px) {
+  .quotes-grid {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 576px) {
+  .quotes-grid {
+    column-count: 1;
+  }
 }
 
 .preloader {
