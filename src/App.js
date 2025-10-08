@@ -89,7 +89,7 @@ function App() {
         </div>
         <div
           className={`quotes-grid ${
-            currentPage === totalPages ? "fade-out" : "fade-in"
+            quotes.length === 0 ? "fade-out" : "fade-in"
           }`}
         >
           {quotes.map((q, index) => (
